@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Domain.Models.Album>
+
+@{
+    ViewData["Title"] = "Album";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.ActionLink("Visualizar Álbum", "Index", "Photo", new {  idAlbum =item.Id, title = item.Title })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

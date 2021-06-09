@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Domain.Models.Photo>
+
+@{
+    ViewData["Title"] = "Photos";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.titleAlbum</title>
+</head>
+<body>
+    <p>
+        <h3>@ViewBag.titleAlbum</h3>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    Imagen
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        <img src="@Url.Content(item.ThumbnailUrl)" alt="image" />
+                    </td>
+                    <td>
+                        @Html.ActionLink("Ver Comentarios", "Edit", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
