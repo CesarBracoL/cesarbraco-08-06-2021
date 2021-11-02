@@ -1,23 +1,31 @@
 ﻿using Application.Queries;
+using Domain.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using WebAppExamn.Common;
 
 namespace WebAppExamn.Controllers
 {
-    public class PhotoController : Controller
+    public class PhotoController : BaseController
     {
-        private readonly IMediator _mediator;
-        public PhotoController(IMediator mediator)
+        public PhotoController(IMediator mediator, IAppLogger logger) : base(mediator, logger)
         {
-            _mediator = mediator;
         }
 
         public async Task<IActionResult> Index(int idAlbum, string title)
         {
+            var watch = new Stopwatch();
+            watch.Start();
+
             var request = new GetPhotoRequest { IdAlbum = idAlbum };
             var model = await _mediator.Send(request);
             ViewBag.titleAlbum = title;
+
+            watch.Stop();
+            _logger.Info("Get Photos of Album. {idAlbum} {elapsed} ", idAlbum, watch.Elapsed.TotalSeconds);
+
             return View(model);
         }
     }

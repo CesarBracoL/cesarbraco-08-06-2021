@@ -1,22 +1,27 @@
-﻿using MediatR;
+﻿using Domain.Common;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using WebAppExamn.Common;
 
 namespace WebAppExamn.Controllers
 {
-    public class CommentController : Controller
+    public class CommentController : BaseController
     {
-        private readonly IMediator _mediator;
-        public CommentController(IMediator mediator)
+        public CommentController(IMediator mediator, IAppLogger logger) : base(mediator, logger)
         {
-            _mediator = mediator;
         }
-        public IActionResult Index(int idPhoto)
+        public async Task<IActionResult> IndexAsync(int idPhoto)
         {
-            var model = await _mediator.Send();
+            var watch = new Stopwatch();
+            watch.Start();
+
+            var model = await _mediator.Send(idPhoto);
+
+            watch.Stop();
+            _logger.Info("Get Comments of {idPhoto}. {elapsed} ", idPhoto, watch.Elapsed.TotalSeconds);
+
             return View(model);
         }
     }
