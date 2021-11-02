@@ -1,3 +1,7 @@
-# cesarbraco-08-06-2021
+# Cesar Braco - Code
 
-El archivo de la solución principal está dentro del proyecto WebAppExam/WebAppExamn.sln
+To start the WebApp run the next command:
+
+`docker-compose up -d`
+
+The application run on [http://localhost:8082](http://localhost:8082)
